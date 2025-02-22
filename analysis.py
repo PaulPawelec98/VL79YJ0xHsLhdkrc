@@ -16,7 +16,7 @@ import json
 
 import statsmodels.api as sm  # stats models for analysis
 
-import random  # for setting seed
+# import random  # for setting seed
 from scipy.stats import randint, uniform
 
 
@@ -28,7 +28,7 @@ from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler
 from sklearn.metrics import confusion_matrix
 from sklearn.metrics import accuracy_score
-from sklearn.model_selection import GridSearchCV
+# from sklearn.model_selection import GridSearchCV
 from sklearn.model_selection import RandomizedSearchCV
 from sklearn.neighbors import NearestCentroid
 from sklearn.ensemble import ExtraTreesClassifier
@@ -271,7 +271,7 @@ def measure_lz_results(lzresults):
     # seed = int(seed)
 lzresults = pd.DataFrame()
 for i in np.round(np.arange(0.2, 0.85, 0.05), 3):
-# for i in np.round(np.arange(0.45, 0.65, 0.05), 3):
+    # for i in np.round(np.arange(0.45, 0.65, 0.05), 3):
 
     X, y = shuffle(df.iloc[:, 1:], df['Y'], random_state=seed)
 
@@ -354,7 +354,7 @@ Plot results by split accross seeds.
 # -----------------------------------------------------------------------------
 
 # Graph Model Performance Accross Splits Accross Seeds ------------------------
-# model = 'RandomForestClassifier'
+model = 'RandomForestClassifier'
 
 model_list = [
     'AdaBoostClassifier', 'BaggingClassifier', 'BernoulliNB',
@@ -369,34 +369,34 @@ model_list = [
     ]
 
 
-# for model in model_list:
-#     df_performance = pd.DataFrame(columns=['split', 'accuracy'])
-#     for key in seeds_to_run:
-#         for split, value in lz_log[key]['.data_by_split'].items():
-#             get_accuracy = {
-#                 'split': split,
-#                 'accuracy': json.loads(value)[model]['Accuracy']
-#                 }
-#             get_accuracy = pd.Series(get_accuracy)
+for model in model_list:
+    df_performance = pd.DataFrame(columns=['split', 'accuracy'])
+    for key in seeds_to_run:
+        for split, value in lz_log[key]['.data_by_split'].items():
+            get_accuracy = {
+                'split': split,
+                'accuracy': json.loads(value)[model]['Accuracy']
+                }
+            get_accuracy = pd.Series(get_accuracy)
 
-#             df_performance = df_performance.append(
-#                 get_accuracy,
-#                 ignore_index=True
-#                 )
+            df_performance = df_performance.append(
+                get_accuracy,
+                ignore_index=True
+                )
 
-#     plt.figure(figsize=(10, 6))
+    plt.figure(figsize=(10, 6))
 
-#     sns.violinplot(
-#         x=df_performance['split'],
-#         y=df_performance['accuracy']
-#         )
+    sns.violinplot(
+        x=df_performance['split'],
+        y=df_performance['accuracy']
+        )
 
-#     # Fix the y-axis scale to be between 0 and 1
-#     plt.ylim(0, 1)
+    # Fix the y-axis scale to be between 0 and 1
+    plt.ylim(0, 1)
 
-#     plt.title(f'{model} Accuracy by Split Accross Seeds')
-#     plt.show()
-# # -----------------------------------------------------------------------------
+    plt.title(f'{model} Accuracy by Split Accross Seeds')
+    plt.show()
+# -----------------------------------------------------------------------------
 
 # %% [8] Machine Learning Model Implementation
 

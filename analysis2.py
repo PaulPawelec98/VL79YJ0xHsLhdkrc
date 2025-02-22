@@ -669,10 +669,7 @@ plt.show()
 # -----------------------------------------------------------------------------
 
 # Bar Chart -------------------------------------------------------------------
-
-final_scores['ExtraTreesClassifier']['recall_for_zero'] = (
-    recall_results['ExtraTreesClassifier']
-    )
+final_scores['ExtraTreesClassifier'] = recall_results['ExtraTreesClassifier']
 
 plt.figure(figsize=(8, 8))  # Set the figure size
 bars = plt.bar(
