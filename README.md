@@ -38,3 +38,9 @@ You can install these packages using pip:
 
 ```bash
 pip install pandas numpy scikit-learn matplotlib seaborn
+```
+
+## Acknowledgments
+
+Apziva for providing the dataset and project framework.​
+The open-source community for their invaluable tools and libraries.​
