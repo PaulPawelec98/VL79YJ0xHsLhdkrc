@@ -42,5 +42,4 @@ pip install pandas numpy scikit-learn matplotlib seaborn
 
 ## Acknowledgments
 
-Apziva for providing the dataset and project framework.​
-The open-source community for their invaluable tools and libraries.​
+Apziva for providing the dataset and project framework.​ The open-source community for their invaluable tools and libraries.​
