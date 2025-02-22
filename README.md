@@ -28,11 +28,11 @@ The primary dataset used in this project is the `ACME-HappinessSurvey2020.csv` f
 
 To run the analysis and models locally, ensure you have the following Python packages installed:
 
-- pandas&#8203;:contentReference[oaicite:12]{index=12}
-- numpy&#8203;:contentReference[oaicite:13]{index=13}
-- scikit-learn&#8203;:contentReference[oaicite:14]{index=14}
-- matplotlib&#8203;:contentReference[oaicite:15]{index=15}
-- seaborn&#8203;:contentReference[oaicite:16]{index=16}
+- pandas
+- numpy
+- scikit-learn
+- matplotlib
+- seaborn
 
 You can install these packages using pip:
 
