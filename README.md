@@ -1,4 +1,4 @@
-# Apziva Project 1: Customer Happiness Prediction
+# Apziva Project 1: Customer Happiness Classification
 
 ## Overview
 
