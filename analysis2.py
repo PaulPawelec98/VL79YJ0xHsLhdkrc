@@ -419,9 +419,19 @@ for i, ax in enumerate(axes.flat):
     ax.barh(_sorted_feature_names, importance[model_name][sorted_idx])
     ax.set_title(f'{model_name}')
 
-fig_bar.suptitle("Feature Importance", fontsize=16, y=1.00)
+    # ax.set_title(f'{model_name}', color='white')
+    # ax.set_xlabel('', color='white')
+    # ax.set_ylabel('', color='white')
+    # ax.tick_params(colors='white')  # Set tick label color
+
 plt.tight_layout()
+
+fig_bar.suptitle("Feature Importance", fontsize=16, y=1.00)
 plt.show()
+
+
+# fig_bar.suptitle("Feature Importance", fontsize=16, y=1.00, color='white')
+# plt.savefig("feature_importance.png", transparent=True, dpi=300)
 # -----------------------------------------------------------------------------
 
 # %% [8] Tuning the Model
@@ -465,7 +475,7 @@ class HyperOptClassifier:
         # TNR
         # score = tn / (tn + fp)  # TNR (overfits...)
         # score = tn / (tn + fn)  # NPV
-        # score = matthews_corrcoef(y_test, y_pred)  # mcc
+        score = matthews_corrcoef(y_test, y_pred)  # mcc
         score = model.score(self.X_test, self.y_test)
 
         # return negative of the score
@@ -668,7 +678,7 @@ plt.tight_layout()
 plt.show()
 # -----------------------------------------------------------------------------
 
-# Bar Chart -------------------------------------------------------------------
+# Save as PNG# Bar Chart -------------------------------------------------------------------
 final_scores['ExtraTreesClassifier'] = recall_results['ExtraTreesClassifier']
 
 plt.figure(figsize=(8, 8))  # Set the figure size
@@ -699,6 +709,7 @@ for bar in bars:
     plt.text(bar.get_x() + bar.get_width() / 2, yval + 0.01,
              f'{yval:.3f}', ha='center', va='bottom', fontsize=12)
 
+
 # rotate axis on x
 plt.xticks(rotation=45)
 
@@ -707,4 +718,20 @@ plt.legend(loc='upper right', fontsize=12)
 
 plt.tight_layout()
 plt.show()
+
+# # Set Colors for Export
+# for bar in bars:
+#     yval = bar.get_height()
+#     plt.text(bar.get_x() + bar.get_width() / 2, yval + 0.01,
+#              f'{yval:.3f}', ha='center', va='bottom', fontsize=12,
+#              color='white'
+#              )
+
+# plt.tick_params(axis='x', colors='white')  # Set x-tick label color
+# plt.tick_params(axis='y', colors='white')  # Set y-tick label color
+# plt.title('Recall for Class 0', fontsize=16, color='white')
+# plt.xlabel('Models', fontsize=14, color='white')
+# plt.ylabel('Score', fontsize=14, color='white')
+# plt.legend(loc='upper right', fontsize=12, labelcolor='white')
+# plt.savefig("bar_chart.png", transparent=True, dpi=300)
 # -----------------------------------------------------------------------------

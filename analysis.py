@@ -130,9 +130,19 @@ for i, ax in enumerate(axes.flat):
     sns.violinplot(x=df['Y'], y=df.iloc[:, i+1], ax=ax)
     ax.set_title(f"{df.columns[i+1]}")
 
-fig_violin.suptitle("Violin Plots")
+    # ax.set_title(f"{df.columns[i+1]}", color='white')  # Set title color
+    # ax.set_xlabel(df['Y'].name, color='white')  # Set x-label color
+    # ax.set_ylabel(df.columns[i+1], color='white')  # Set y-label color
+    # ax.tick_params(colors='white')  # Set tick label color
+
 plt.tight_layout()
+
+fig_violin.suptitle("Violin Plots")
 plt.show()
+
+# fig_violin.suptitle("Violin Plots", color='white')
+# plt.savefig("violin_chart.png", transparent=True, dpi=300)
+
 
 # %% [5] Logistic Regressions, Confusion Matrix, Etc..
 '''
@@ -269,26 +279,26 @@ def measure_lz_results(lzresults):
 
 # for seed in seeds_to_run:
     # seed = int(seed)
-lzresults = pd.DataFrame()
-for i in np.round(np.arange(0.2, 0.85, 0.05), 3):
-    # for i in np.round(np.arange(0.45, 0.65, 0.05), 3):
+# lzresults = pd.DataFrame()
+# for i in np.round(np.arange(0.2, 0.85, 0.05), 3):
+#     # for i in np.round(np.arange(0.45, 0.65, 0.05), 3):
 
-    X, y = shuffle(df.iloc[:, 1:], df['Y'], random_state=seed)
+#     X, y = shuffle(df.iloc[:, 1:], df['Y'], random_state=seed)
 
-    X_train, X_test, y_train, y_test = train_test_split(X,
-                                                        y,
-                                                        test_size=i,
-                                                        random_state=seed
-                                                        )
-    clf = LazyClassifier(verbose=0, ignore_warnings=True,
-                         custom_metric=None
-                         )
-    lazymodels, predictions = clf.fit(X_train, X_test, y_train, y_test)
-    lazymodels = pd.DataFrame(lazymodels)
-    lazymodels["Split"] = i
-    lzresults = pd.concat([lzresults, lazymodels], ignore_index=False)
+#     X_train, X_test, y_train, y_test = train_test_split(X,
+#                                                         y,
+#                                                         test_size=i,
+#                                                         random_state=seed
+#                                                         )
+#     clf = LazyClassifier(verbose=0, ignore_warnings=True,
+#                          custom_metric=None
+#                          )
+#     lazymodels, predictions = clf.fit(X_train, X_test, y_train, y_test)
+#     lazymodels = pd.DataFrame(lazymodels)
+#     lazymodels["Split"] = i
+#     lzresults = pd.concat([lzresults, lazymodels], ignore_index=False)
 
-lz_results_grouped = measure_lz_results(lzresults)
+# lz_results_grouped = measure_lz_results(lzresults)
 
 # %% [7A] Review Results - Apply Measures
 '''
@@ -354,49 +364,49 @@ Plot results by split accross seeds.
 # -----------------------------------------------------------------------------
 
 # Graph Model Performance Accross Splits Accross Seeds ------------------------
-model = 'RandomForestClassifier'
+# model = 'RandomForestClassifier'
 
-model_list = [
-    'AdaBoostClassifier', 'BaggingClassifier', 'BernoulliNB',
-    'CalibratedClassifierCV', 'DecisionTreeClassifier', 'DummyClassifier',
-    'ExtraTreeClassifier', 'ExtraTreesClassifier', 'GaussianNB',
-    'KNeighborsClassifier', 'LGBMClassifier', 'LabelPropagation',
-    'LabelSpreading', 'LinearDiscriminantAnalysis', 'LinearSVC',
-    'LogisticRegression', 'NearestCentroid', 'NuSVC',
-    'PassiveAggressiveClassifier', 'Perceptron', 'QuadraticDiscriminantAnalysis',
-    'RandomForestClassifier', 'RidgeClassifier', 'RidgeClassifierCV',
-    'SGDClassifier', 'SVC', 'XGBClassifier'
-    ]
+# model_list = [
+#     'AdaBoostClassifier', 'BaggingClassifier', 'BernoulliNB',
+#     'CalibratedClassifierCV', 'DecisionTreeClassifier', 'DummyClassifier',
+#     'ExtraTreeClassifier', 'ExtraTreesClassifier', 'GaussianNB',
+#     'KNeighborsClassifier', 'LGBMClassifier', 'LabelPropagation',
+#     'LabelSpreading', 'LinearDiscriminantAnalysis', 'LinearSVC',
+#     'LogisticRegression', 'NearestCentroid', 'NuSVC',
+#     'PassiveAggressiveClassifier', 'Perceptron', 'QuadraticDiscriminantAnalysis',
+#     'RandomForestClassifier', 'RidgeClassifier', 'RidgeClassifierCV',
+#     'SGDClassifier', 'SVC', 'XGBClassifier'
+#     ]
 
 
-for model in model_list:
-    df_performance = pd.DataFrame(columns=['split', 'accuracy'])
-    for key in seeds_to_run:
-        for split, value in lz_log[key]['.data_by_split'].items():
-            get_accuracy = {
-                'split': split,
-                'accuracy': json.loads(value)[model]['Accuracy']
-                }
-            get_accuracy = pd.Series(get_accuracy)
+# for model in model_list:
+#     df_performance = pd.DataFrame(columns=['split', 'accuracy'])
+#     for key in seeds_to_run:
+#         for split, value in lz_log[key]['.data_by_split'].items():
+#             get_accuracy = {
+#                 'split': split,
+#                 'accuracy': json.loads(value)[model]['Accuracy']
+#                 }
+#             get_accuracy = pd.Series(get_accuracy)
 
-            df_performance = df_performance.append(
-                get_accuracy,
-                ignore_index=True
-                )
+#             df_performance = df_performance.append(
+#                 get_accuracy,
+#                 ignore_index=True
+#                 )
 
-    plt.figure(figsize=(10, 6))
+#     plt.figure(figsize=(10, 6))
 
-    sns.violinplot(
-        x=df_performance['split'],
-        y=df_performance['accuracy']
-        )
+#     sns.violinplot(
+#         x=df_performance['split'],
+#         y=df_performance['accuracy']
+#         )
 
-    # Fix the y-axis scale to be between 0 and 1
-    plt.ylim(0, 1)
+#     # Fix the y-axis scale to be between 0 and 1
+#     plt.ylim(0, 1)
 
-    plt.title(f'{model} Accuracy by Split Accross Seeds')
-    plt.show()
-# -----------------------------------------------------------------------------
+#     plt.title(f'{model} Accuracy by Split Accross Seeds')
+#     plt.show()
+# # -----------------------------------------------------------------------------
 
 # %% [8] Machine Learning Model Implementation
 
@@ -727,7 +737,6 @@ cv_results = {
 best_parameters = {
     x: Fitted_Models[x].best_params_ for x in Fitted_Models
     }
-
 # -----------------------------------------------------------------------------
 
 # Confusion Plots -------------------------------------------------------------
